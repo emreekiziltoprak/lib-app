@@ -13,20 +13,10 @@ import java.util.UUID;
 @Getter
 public class Member {
 
-    private String fullName;
-    private String email;
     private final LocalDateTime createdAt;
     private final UUID id;
-
-    @Override
-    public String toString() {
-        return "Member{" +
-                "fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", createdAt=" + createdAt +
-                ", id=" + id +
-                '}';
-    }
+    private String fullName;
+    private String email;
 
     public Member(String fullName, String email) {
 
@@ -40,6 +30,16 @@ public class Member {
         this.createdAt = LocalDateTime.now();
         this.email = email.toLowerCase(Locale.ROOT).trim();
         this.id = UUID.randomUUID();
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", createdAt=" + createdAt +
+                ", id=" + id +
+                '}';
     }
 
     @Override
