@@ -1,20 +1,40 @@
 package com.emrekiziltoprak.libraryapp.book;
 
 import com.emrekiziltoprak.libraryapp.utils.Utils;
+import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.time.LocalDate;
-import java.util.Objects;
+import java.util.UUID;
 
-
+@Entity
+@Table(name = "books")
 @Getter
 public class Book {
-    private final String isbn;
+
+    @Id
+    private UUID id;
+
+    @Column
+    private String isbn;
+
+    @Column
     private String title;
+
+    @Column
     private String author;
+
+    @Column
     private int publishYear;
+
+    @Enumerated(EnumType.STRING)
     private Genre genre;
+
+    @Column
     private int totalCopies;
+
+    protected Book () {
+
+    }
 
     public Book(String isbn, int totalCopies, Genre genre, int publishYear, String author, String title) {
 
@@ -34,6 +54,7 @@ public class Book {
         this.publishYear = publishYear;
         this.author = author;
         this.title = title;
+        this.id = java.util.UUID.randomUUID();
     }
 
     @Override
