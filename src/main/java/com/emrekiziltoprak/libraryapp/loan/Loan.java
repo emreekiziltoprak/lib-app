@@ -2,6 +2,7 @@ package com.emrekiziltoprak.libraryapp.loan;
 
 import com.emrekiziltoprak.libraryapp.book.Book;
 import com.emrekiziltoprak.libraryapp.member.Member;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -9,7 +10,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.UUID;
 
-
+@Entity
+@Table(name = "loan")
 @Getter
 public class Loan {
 
@@ -17,13 +19,31 @@ public class Loan {
     private static final int MAX_RENEWALS = 1;
     private static final int MAX_EXTENSION_DAYS = 30;
 
-    private final Book book;
-   private final Member member;
-   private final LocalDate borrowedAt;
-   private LocalDate dueDate;
-   private LocalDate returnedAt;
-   private int renewCount;
-   private final UUID id;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
+
+    @Column
+    private LocalDate borrowedAt;
+
+    @Column
+    private LocalDate dueDate;
+
+    @Column
+    private LocalDate returnedAt;
+
+    @Column
+    private int renewCount;
+
+   @Id
+   private UUID id;
+
+   protected Loan() {}
 
     public Loan(Book book, Member member, LocalDate borrowedAt) {
         this.book = Objects.requireNonNull(book, "book must not be null");

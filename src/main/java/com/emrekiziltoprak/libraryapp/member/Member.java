@@ -2,6 +2,10 @@ package com.emrekiziltoprak.libraryapp.member;
 
 import com.emrekiziltoprak.libraryapp.utils.EmailValidator;
 import com.emrekiziltoprak.libraryapp.utils.Utils;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -10,13 +14,24 @@ import java.util.Objects;
 import java.util.UUID;
 
 //domain entity
+@Entity
+@Table(name = "member")
 @Getter
 public class Member {
 
-    private final LocalDateTime createdAt;
-    private final UUID id;
+    @Column
+    private LocalDateTime createdAt;
+
+    @Id
+    private UUID id;
+
+    @Column
     private String fullName;
+
+    @Column
     private String email;
+
+    protected Member () {}
 
     public Member(String fullName, String email) {
 
